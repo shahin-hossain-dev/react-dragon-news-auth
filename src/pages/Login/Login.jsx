@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const { userSignIn } = useContext(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(e.currentTarget); //form কে পাওয়ার জন্য e.currentTarget
@@ -9,6 +12,16 @@ const Login = () => {
     const email = form.get("email"); // form function variable কে form.get() দিয়ে input field name দিলে value পাওয়া যাবে।
     const password = form.get("password");
     console.log(email, password);
+
+    // sign in user
+    userSignIn(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

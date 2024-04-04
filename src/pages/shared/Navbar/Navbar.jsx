@@ -1,7 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
-import user from "../../../assets/user.png";
+import userPicture from "../../../assets/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user.email);
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        console.log("Logout Successfully");
+      })
+      .then((error) => console.log(error));
+  };
   const links = (
     <div className=" flex gap-3">
       <li>
@@ -51,6 +62,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
+          {user?.email}
           <div
             tabIndex={0}
             role="button"
@@ -60,13 +72,19 @@ const Navbar = () => {
               <img
                 className="border"
                 alt="Tailwind CSS Navbar component"
-                src={user}
+                src={userPicture}
               />
             </div>
           </div>
-          <button className="btn">
-            <Link to={"/login"}>Login</Link>
-          </button>
+          {user ? (
+            <button onClick={handleSignOut} className="btn">
+              Logout
+            </button>
+          ) : (
+            <button className="btn">
+              <Link to={"/login"}>Login</Link>
+            </button>
+          )}
         </div>
       </div>
     </div>

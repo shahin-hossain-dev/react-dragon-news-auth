@@ -1,25 +1,41 @@
 import { Link } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
 
-const Login = () => {
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log(e.currentTarget); //form কে পাওয়ার জন্য e.currentTarget
-    const form = new FormData(e.currentTarget); // new FormData(e.currentTarget) দিলে  data িএকটা object এর মধ্যে আসবে।
-    const email = form.get("email"); // form function variable কে form.get() দিয়ে input field name দিলে value পাওয়া যাবে।
-    const password = form.get("password");
-    console.log(email, password);
-  };
-
+const Register = () => {
+  const handleRegister = () => {};
   return (
     <div>
       <Navbar />
       <div className="w-1/2 mx-auto mt-10">
         <div className="w-full">
           <div className="text-center ">
-            <h1 className="text-5xl font-bold">Please Login!</h1>
+            <h1 className="text-5xl font-bold">Create a Account!</h1>
           </div>
-          <form onSubmit={handleLogin} className="card-body">
+          <form onSubmit={handleRegister} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                name="photo"
+                placeholder="Photo URL"
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -27,11 +43,12 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="email"
+                placeholder="Email"
                 className="input input-bordered"
                 required
               />
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
@@ -39,7 +56,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 className="input input-bordered"
                 required
               />
@@ -54,9 +71,9 @@ const Login = () => {
             </div>
           </form>
           <p className="text-center">
-            Don&apos;t Have an Account? Please{" "}
-            <Link to={"/register"} className=" link link-hover link-primary">
-              Register
+            Already Have an Account? Please{" "}
+            <Link to={"/login"} className=" link link-hover link-primary">
+              Login
             </Link>
           </p>
         </div>
@@ -65,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
   const { userSignIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location.state.pathname);
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(e.currentTarget); //form কে পাওয়ার জন্য e.currentTarget
@@ -18,6 +21,7 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        navigate(location.state?.pathname || "/");
       })
       .catch((error) => {
         console.log(error);
